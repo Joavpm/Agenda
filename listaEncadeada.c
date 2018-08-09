@@ -1,12 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "ListaDinEncad.h" //inclui os Protótipos
-
-//Definição do tipo lista
-struct elemento{
-#include <stdio.h>
-#include <stdlib.h>
-#include "ListaDinEncad.h" //inclui os Protótipos
+#include <string.h>
+#include "listaEncadeada.h" //inclui os Protótipos
 
 //Definição do tipo lista
 struct elemento{
@@ -46,12 +41,11 @@ int consultaAgendaEndereco(Lista* li, char* endereco){
     if(no == NULL)
         return 0;
     else{
-        *al = no->dados;
         return 1;
     }
 }
 
-int insereAgenda(Lista* li, struct agenda ag){
+int insereAgenda(Lista* li, struct agenda ag,char* nome){
     if(li == NULL)
         return 0;
     Elem *no = (Elem*) malloc(sizeof(Elem));
@@ -65,7 +59,7 @@ int insereAgenda(Lista* li, struct agenda ag){
     }
     else{
         Elem *ant, *atual = *li;
-        while(atual != NULL && atual->dados.matricula < al.matricula){
+        while(atual != NULL && strcmp(no->dados.nome,nome) != 0){
             ant = atual;
             atual = atual->prox;
         }
@@ -80,13 +74,13 @@ int insereAgenda(Lista* li, struct agenda ag){
     }
 }
 
-int removeAgenda(Lista* li, int mat){
+int removeAgenda(Lista* li,char* nome){
     if(li == NULL)
         return 0;
     if((*li) == NULL)//lista vazia
         return 0;
     Elem *ant, *no = *li;
-    while(no != NULL && no->dados.matricula != mat){
+    while(no != NULL && strcmp(no->dados.nome,nome) != 0){
         ant = no;
         no = no->prox;
     }
