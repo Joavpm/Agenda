@@ -3,11 +3,11 @@
 #include "ListaDinEncad.h" //inclui os Protótipos
 
 //Definição do tipo lista
-struct elemento{
+typedef struct{
     struct agenda dados;
     struct elemento *prox;
-};
-typedef struct elemento Elem;
+} elemento;
+elemento Elem;
 
 Lista* criaLista(){
     Lista* li = (Lista*) malloc(sizeof(Lista));
