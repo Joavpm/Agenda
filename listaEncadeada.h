@@ -5,7 +5,7 @@ struct agenda{
 
 typedef struct elemento* Lista;
 
-Lista* cria_lista();
+Lista* criaAgenda();
 void liberaAgenda(Lista* li);
 int consultaAgendaEndereco(Lista* li, char* endereco);
 int insereAgenda(Lista* li, struct agenda ag, char* nome);
