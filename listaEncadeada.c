@@ -4,19 +4,25 @@
 
 //Definição do tipo lista
 struct elemento{
+#include <stdio.h>
+#include <stdlib.h>
+#include "ListaDinEncad.h" //inclui os Protótipos
+
+//Definição do tipo lista
+struct elemento{
     struct agenda dados;
     struct elemento *prox;
 };
 typedef struct elemento Elem;
 
-Lista* criaLista(){
+Lista* criaAgenda(){
     Lista* li = (Lista*) malloc(sizeof(Lista));
     if(li != NULL)
         *li = NULL;
     return li;
 }
 
-void liberaLista(Lista* li){
+void liberaAgenda(Lista* li){
     if(li != NULL){
         Elem* no;
         while((*li) != NULL){
@@ -28,7 +34,7 @@ void liberaLista(Lista* li){
     }
 }
 
-int consultaListaEnderco(Lista* li, char* endereco){
+int consultaAgendaEndereco(Lista* li, char* endereco){
     if(li == NULL || endereco == NULL)
         return 0;
     Elem *no = *li;
@@ -45,13 +51,13 @@ int consultaListaEnderco(Lista* li, char* endereco){
     }
 }
 
-int insereLista(Lista* li, struct aluno al){
+int insereAgenda(Lista* li, struct agenda ag){
     if(li == NULL)
         return 0;
     Elem *no = (Elem*) malloc(sizeof(Elem));
     if(no == NULL)
         return 0;
-    no->dados = al;
+    no->dados = ag;
     if((*li) == NULL){//lista vazia: insere início
         no->prox = NULL;
         *li = no;
@@ -74,7 +80,7 @@ int insereLista(Lista* li, struct aluno al){
     }
 }
 
-int remove_lista(Lista* li, int mat){
+int removeAgenda(Lista* li, int mat){
     if(li == NULL)
         return 0;
     if((*li) == NULL)//lista vazia
@@ -95,7 +101,7 @@ int remove_lista(Lista* li, int mat){
     return 1;
 }
 
-int tamanho_lista(Lista* li){
+int tamanhoAgenda(Lista* li){
     if(li == NULL)
         return 0;
     int cont = 0;
@@ -107,19 +113,13 @@ int tamanho_lista(Lista* li){
     return cont;
 }
 
-void imprime_lista(Lista* li){
+void imprimeAgenda(Lista* li){
     if(li == NULL)
         return;
     Elem* no = *li;
     while(no != NULL){
-        printf("Matricula: %d\n",no->dados.matricula);
-        printf("Nome: %s\n",no->dados.nome);
-        printf("Notas: %f %f %f\n",no->dados.n1,
-                                   no->dados.n2,
-                                   no->dados.n3);
-        printf("-------------------------------\n");
-
+        printf("Nome: %d\n",no->dados.nome);
+        printf("Endereco: %s\n",no->dados.endereco);
         no = no->prox;
     }
 }
-
