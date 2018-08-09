@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <string.h>
 #include "listaEncadeada.h" //inclui os Protótipos
 
 //Definição do tipo lista
@@ -116,4 +117,68 @@ void imprimeAgenda(Lista* li){
         printf("Endereco: %s\n",no->dados.endereco);
         no = no->prox;
     }
+}
+
+void menu(){
+    int op;
+    char nome[50];
+    printf("Digite:\n0-Sair\n1-Criar uma agenda\n2-Alterar uma agenda");
+    scanf("%d",&op);
+
+    while(op !=0){
+        switch(op){
+            case 1:
+                printf("Nome da agenda(sem espacos): ");
+                scanf("%s",nome);
+                fflush(stdin);
+                criaAgenda(nome);
+            break;
+            case 2:
+                printf("Qual agenda deseja consultar/alterar? ");
+                scanf("%s",nome);
+                fflush(stdin);
+                Consulta(nome);
+
+        }
+    }
+}
+
+void criaAgenda_arq(char nome[]) {
+    FILE *arq;
+    strcpy(nome,".txt");
+
+    arq = fopen(nome,"w");
+    if(arq==NULL){
+        printf("ERRO");
+        exit(1);
+    }
+
+    fclose(arq);
+}
+
+void Consulta(char nome[]) {
+    Lista* li;
+    char nomeAgenda[30];
+    char endereco[30];
+    struct agenda ag;
+
+     FILE *arq;
+    strcpy(nome,".txt");
+
+    arq = fopen(nome,"w");
+    if(arq==NULL){
+        printf("ERRO");
+        exit(1);
+    }
+
+    li = criaAgenda(li);    
+
+    while(fread(&ag,sizeof(agenda),1,arq)) {
+        insereAgenda(li,ag,nomeAgenda);
+    }
+    printf("Qual endereco deseja consultar? ");
+    scanf("%s",endereco);
+    int consulta = consultaAgendaEndereco(li, char* endereco);
+
+    consulta == 1 ? printf("Endereco esta na lista"); : printf("Nao esta na lista");
 }
